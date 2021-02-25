@@ -93,3 +93,161 @@ func cylinderVolume(radius: Double, height: Double) -> Double {
 
 let volume = cylinderVolume(radius: 10.0, height: 8.5)
 ```
+
+
+## 2. Swift Funcamental II
+
+### Custom types
+- Swift is an obejct-oriented language.
+1. `enum` : allows to create a finite set of options to choose
+  - behave like a selection `drop-down`
+  - can initialize by 1) using the full type, or 2) using the dot notation if the type is already known via `type inference`
+2. `struct` : create a grouping of information that is not all the same type // `value type`
+  - will automatically creates an initializer that you can use to populat all of the variables
+  - used to store points, rectangles, and sizes in an iPhone app
+3. `class` : create a `reference data type` that allows to refer to specific instances throughout an app
+  - need `init()` to initialize all of the properties of the class to thte prarmeters passed in, or to default value
+  - Class replationships : one class can have other classes
+
+```swift
+enum ProductType {
+  case laptop
+  case phone
+  case tv
+  case computer
+  case accesory
+}
+
+let tv = ProductType.tv
+let laptop: ProductType = .laptop
+
+struct Purchase {
+  let productName: String
+  let purchaseDate: Date
+  let productType: ProductType
+}
+
+let myLaptop = Purchase(productName: "MacBook Pro", purchaseDate: Date(), productType: .laptop)
+
+class Customer {
+  var name: String
+  var address: String
+  var age: Int
+  var purchases: [Purchase]
+
+  init(name: String, address: String, age: Int) {
+    self.name = name
+    self.address = address
+    self.age = age
+    self.purchases = [] // set up property values to default values (empty array)
+  }
+}
+
+let autumn = Customer(name: "Autumn Smith", address: "123 Apple st, New York, New York 12344", age: 21)
+
+class Store {
+  var name: String
+  var address: String
+  var customers: [Customer]
+
+  init(name: String, address: String) {
+      self.name = name
+      self.address = address
+      self.customers = []
+  }
+}
+
+let bestBuy = Store(name: "Best Buy", address: "125 Apple Street, Rochester, NY 14623")
+bestBuy.customers.append(autumn)
+```
+
+### Value type vs Reference type
+- Pass by `Value` : the data is copied when you pass it to functions and properties (or when you assign it to other variables)
+- Pass by `Reference` : when the copied object is changed, both the copied and original object is changed >> data `refers` the original data 
+
+```swift
+struct DriverLicense {
+  var name: String
+}
+
+let myDL = DriverLicense(name: "Autumn Smith")
+var duplicatedDL = myDL
+print(myDL.name) // "Autumn Smith"
+
+duplicatedDL.name = "Winter Smith"
+print(duplicatedDL.name) // "Winter Smith"
+print(myDL.name) // "Autumn Smith" << the original data is not changed
+
+class Wallet {
+  var license: DriverLicense
+  var material: String
+  init(license: DriverLicense, material: String) {
+    self.license = license
+    selft.material = material 
+  }
+}
+
+let myWallet = Wallet(license: myDL, material: "Cotton")
+
+let myFavoriteWallet = myWallet
+print(myFavoriteWallet.material) // "Cotton"
+
+myFavoriteWallet.material = "Leather"
+print(myWallet.material) // "Leather" << changing a reference type changes the 'shared' object
+print(myFavoriteWallet.material) // "Leather"
+```
+
+- `init()` : custom initializer
+  - set up the default state of an object (an instance of a class) or a structure
+- `method` : function in a `class` or `struct` // has access to the instance variables or properties of that type
+
+```swift
+class TextDocument {
+  var fileName: String
+  var text: String
+  var isModified: Bool
+
+  init(filename: String, text: String = "") {  // text will be "" as a default
+    self.filename = filename
+    self.text = text
+    self.isModified = false // defulat to not modified
+  }
+
+  func duplicate() -> TextDocument {
+    let textCopy = TextDocument(filename: filename, text: text)
+    textCopy.isModified = isModified
+    return textCopy
+  }
+}
+
+let diary = TextDocument(filename: "Diary.txt", text: "Dear diary, ...")
+let duplicatedDiary = diary.duplicate()
+```
+
+### Optionals
+- A certain variable (or value) could exist or not exist or even be changed : use `?` like Double?, Int?, String?
+- Useful when you want a user to type/select a certain data type you choose
+- Unwrap an optional variable : `if let` || `guard let`
+  - unwrap a value if it exists, or ignore the value if it doesn't exist
+- Force unwrap an optional : `!` << if you know the value is not `nil`, you can use force unwrap it
+  - this is not defensive way of writing a code!
+
+```swift
+var optionalNumber: Int? = nil
+optionalNumber = 35
+if let number = optionalNumber {
+  print("Your number : \(number)")
+} else {
+  print("What number? I don't see anything.") // when the optionalNumber is nil
+}
+
+let todayWeight: Double? = 150 // optional
+let desiredWeight = 130
+
+let poundsToLose =  todayWeight! - desiredWeight // forced unwrap!
+
+if todaysWeight != nil { // more defensive 
+  let poundsToLose = todayWieght - desiredWeight
+} else {
+  print("Invalid input")
+}
