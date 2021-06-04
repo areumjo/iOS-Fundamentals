@@ -1,16 +1,17 @@
 # iOS-Fundamentals
 
-
 ## 1. Swift Funcamental I
 
 ### Data types
+
 - `Int`
-- `String` 
+- `String`
 - `Bool` : `true` or `false`
 - `Double` : a number but has a decimal value
 
 - `let` : declare variables >> can not mutate the value
-- `var` : declare variables and can be changed later 
+- `var` : declare variables and can be changed later
+
 ```swift
 let number = 5
 let string = "Autumn"
@@ -24,8 +25,10 @@ totalPrice = socks + shoelaces
 ```
 
 ### Conditional statement
-1) `if`
-2) `switch` : whichever case is true at runtime, the code underneath it will run // if any of the cases are no found, then default will be executed
+
+1. `if`
+2. `switch` : whichever case is true at runtime, the code underneath it will run // if any of the cases are no found, then default will be executed
+
 ```swift
 let x = 5
 if x > 100 {
@@ -49,10 +52,11 @@ switch princess {
 }
 ```
 
-
 ### Iterate over an array using a loop
-1) `for` : good to use when the code to be executed needs to run "a specific number" of times
-2) `while` : is used when the code block needs to be repeated "an unspecified number" of times
+
+1. `for` : good to use when the code to be executed needs to run "a specific number" of times
+2. `while` : is used when the code block needs to be repeated "an unspecified number" of times
+
 ```swift
 for n in 1...50 {
   print(n) // 1 2 3 ... 50 : inclusivde of 50
@@ -69,10 +73,11 @@ for i in groceries {
 }
 ```
 
-
 ### Function
+
 - `func`
   - Setting up the function, we give it a name, a list of parameters(each parameters has a name, followed by a colon and the data type // for many parameters separate them with commas), and a arrow sign and a return type
+
 ```swift
 let pi = 3.141592
 
@@ -94,20 +99,26 @@ func cylinderVolume(radius: Double, height: Double) -> Double {
 let volume = cylinderVolume(radius: 10.0, height: 8.5)
 ```
 
-
 ## 2. Swift Funcamental II
 
 ### Custom types
+
 - Swift is an obejct-oriented language.
+
 1. `enum` : allows to create a finite set of options to choose
-  - behave like a selection `drop-down`
-  - can initialize by 1) using the full type, or 2) using the dot notation if the type is already known via `type inference`
+
+- behave like a selection `drop-down`
+- can initialize by 1) using the full type, or 2) using the dot notation if the type is already known via `type inference`
+
 2. `struct` : create a grouping of information that is not all the same type // `value type`
-  - will automatically creates an initializer that you can use to populat all of the variables
-  - used to store points, rectangles, and sizes in an iPhone app
+
+- will automatically creates an initializer that you can use to populat all of the variables
+- used to store points, rectangles, and sizes in an iPhone app
+
 3. `class` : create a `reference data type` that allows to refer to specific instances throughout an app
-  - need `init()` to initialize all of the properties of the class to thte prarmeters passed in, or to default value
-  - Class replationships : one class can have other classes
+
+- need `init()` to initialize all of the properties of the class to thte prarmeters passed in, or to default value
+- Class replationships : one class can have other classes
 
 ```swift
 enum ProductType {
@@ -162,8 +173,9 @@ bestBuy.customers.append(autumn)
 ```
 
 ### Value type vs Reference type
+
 - Pass by `Value` : the data is copied when you pass it to functions and properties (or when you assign it to other variables)
-- Pass by `Reference` : when the copied object is changed, both the copied and original object is changed >> data `refers` the original data 
+- Pass by `Reference` : when the copied object is changed, both the copied and original object is changed >> data `refers` the original data
 
 ```swift
 struct DriverLicense {
@@ -183,7 +195,7 @@ class Wallet {
   var material: String
   init(license: DriverLicense, material: String) {
     self.license = license
-    selft.material = material 
+    selft.material = material
   }
 }
 
@@ -225,6 +237,7 @@ let duplicatedDiary = diary.duplicate()
 ```
 
 ### Optionals
+
 - A certain variable (or value) could exist or not exist or even be changed : use `?` like Double?, Int?, String?
 - Useful when you want a user to type/select a certain data type you choose
 - Unwrap an optional variable : `if let` || `guard let`
@@ -246,8 +259,15 @@ let desiredWeight = 130
 
 let poundsToLose =  todayWeight! - desiredWeight // forced unwrap!
 
-if todaysWeight != nil { // more defensive 
+if todaysWeight != nil { // more defensive
   let poundsToLose = todayWieght - desiredWeight
 } else {
   print("Invalid input")
 }
+```
+
+## 3. Swift Fundamental III
+
+### `guard let`
+
+-
